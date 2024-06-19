@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import users from "../../../ChatDB/Users/Users";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -8,10 +7,6 @@ import CloseIcon from "@mui/icons-material/Close";
 export default function SideBar({ socket }) {
   const [userList, setUserList] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    setUserList(users);
-  }, []);
 
   socket.on("online users", (onlineUsers) => {
     setUserList(onlineUsers);

@@ -56,7 +56,7 @@ export default function GlobalChannel({ socket }) {
   const fetchGlobalMessages = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:7000/messages/global",
+        "http://localhost:7000/api/messages/global",
         {
           headers: {
             Authorization: localStorage.getItem("token"),

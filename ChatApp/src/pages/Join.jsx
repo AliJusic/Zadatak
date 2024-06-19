@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Join() {
@@ -8,7 +8,7 @@ export default function Join() {
   const handleGenerateUser = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:7000/generateUser");
+      const response = await fetch("http://localhost:7000/api/generateUser");
       const data = await response.json();
       console.log(data);
       if (data.success) {

@@ -1,0 +1,46 @@
+# Telling docker-compose to build the client and server images and run them in containers.
+services:
+  client:
+    # Telling docker-compose to build the client image using the Dockerfile in the client directory.
+    build:
+      context: ./ChatApp
+      dockerfile: Dockerfile
+    # Giving the container a name.
+    container_name: react-ui
+    # Mapping the port 3000 on the host machine to the port 3000 on the container.
+    ports:
+      - "5173:5173"
+    # Mapping the client directory on the host machine to the /app directory on the container.
+    # Allows you to run container in detached mode.
+    stdin_open: true
+    tty: true
+    depends_on:
+      - server
+    networks:
+      - mern-network
+  server:
+    # Telling docker-compose to build the client image using the Dockerfile in the server directory.
+    build:
+      context: ./ChatServer
+      dockerfile: Dockerfile
+    container_name: node-api
+    restart: always
+    ports:
+      - "7000:7000"
+    depends_on:
+      - database
+    networks:
+      - mern-network
+  database:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - /home/ali/mongo-backup:/data/db
+    networks:
+      - mern-network
+    container_name: mongo-db
+
+networks:
+  mern-network:
+    driver: bridge

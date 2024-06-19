@@ -17,7 +17,7 @@ export default function SendMessage({ channelID, socket }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:7000/messages/global",
+        "http://localhost:7000/api/messages/global",
         {
           channelId: "123",
           message: message,

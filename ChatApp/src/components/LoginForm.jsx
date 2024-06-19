@@ -32,7 +32,7 @@ export default function LoginForm() {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:7000/login",
+        "http://localhost:7000/api/login",
         formData
       );
       console.log(response);

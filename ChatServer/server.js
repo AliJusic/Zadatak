@@ -16,9 +16,9 @@ const io = new Server(server, {
 });
 const jwt = require("jsonwebtoken");
 ConnectDB();
-
+const allowedOrigins = ["http://localhost:5173", "http://192.168.1.7:5173"];
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: allowedOrigins }));
 
 let onlineUsers = [];
 
@@ -65,20 +65,20 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   await userController.userLogin(req, res);
 });
 
-app.get("/generateUser", async (req, res) => {
+app.get("/api/generateUser", async (req, res) => {
   await userController.generateAndLoginUser(req, res);
 });
 
-app.post("/messages/global", verifyToken, async (req, res) => {
+app.post("/api/messages/global", verifyToken, async (req, res) => {
   // Get userID from request object
   await messageController.createGlobalMessage(req, res);
 });
 
-app.get("/messages/global", verifyToken, async (req, res) => {
+app.get("/api/messages/global", verifyToken, async (req, res) => {
   await messageController.getGlobalMessages(req, res);
 });
 
